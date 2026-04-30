@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import './App.css'
+import Page from './component/Page'
 
 function App() {
 
 
   return (
     <>
-      
+      <Page/>
     </>
   )
 }
