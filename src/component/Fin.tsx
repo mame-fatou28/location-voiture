@@ -1,7 +1,9 @@
 import image1 from '../assets/luxedrivee-removebg-preview.png'
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function Fin() {
+    const navigate = useNavigate();
   return (
     <div className="bg-zinc-900 relative w-full overflow-hidden">
 
@@ -24,9 +26,14 @@ export default function Fin() {
             Réservez dès maintenant et vivez une expérience de conduite exceptionnelle
           </h2>
 
-          <button className="w-44 md:w-56 h-12 md:h-14 bg-red-600 text-white rounded-lg mt-6 md:mt-8 text-sm md:text-lg hover:scale-105 transition">
+          <div className="flex felx-row gap-3">
+            <button className="w-44 md:w-56 h-12 md:h-14 bg-red-600 text-white rounded-lg mt-6 md:mt-8 text-sm md:text-lg hover:scale-105 transition">
             Réserver maintenant
           </button>
+           <button  onClick={() => navigate("/dashboard")} className="w-50 md:w-56 h-12 md:h-14 border-1 border-red-600 text-white rounded-lg mt-6 md:mt-8 text-sm md:text-lg hover:scale-105 transition">
+            Acceder au dashbord
+          </button>
+          </div>
         </div>
       </div>
 

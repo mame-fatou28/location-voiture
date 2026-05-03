@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import image1 from '../assets/luxedrivee-removebg-preview.png'
-
+import { useNavigate } from "react-router-dom";
 export default function Nav() {
+  const navigate = useNavigate();
   return (
     <div>
 
@@ -14,19 +16,35 @@ export default function Nav() {
 
         <img src={image1} className="w-16 h-16 md:w-20 md:h-20" />
 
-        <div className="hidden md:flex gap-6 font-serif">
-          <a href="" className="hover:text-red-600 transition">Accueil</a>
-          <a href="" className="hover:text-red-600 transition">Nos voitures</a>
-          <a href="" className="hover:text-red-600 transition">A propos</a>
-          <a href="" className="hover:text-red-600 transition">Tarif</a>
-          <a href="" className="hover:text-red-600 transition">Contact</a>
-        </div>
+      <div className="hidden md:flex gap-6 font-serif">
+  <Link to="/" className="hover:text-red-600 transition">
+    Accueil
+  </Link>
+
+  <Link to="/nosvoitures" className="hover:text-red-600 transition">
+    Nos voitures
+  </Link>
+
+  <Link to="/apropos" className="hover:text-red-600 transition">
+    A propos
+  </Link>
+
+  <Link to="/tarif" className="hover:text-red-600 transition">
+    Tarif
+  </Link>
+
+  <Link to="/contact" className="hover:text-red-600 transition">
+    Contact
+  </Link>
+  
+  
+</div>
 
         <div className="flex gap-2 md:gap-4">
-          <button className="px-4 py-2 rounded-lg border border-red-600 text-sm md:text-base hover:scale-105 transition">
+          <button  onClick={() => navigate("/connexion")} className="px-4 py-2 rounded-lg border border-red-600 text-sm md:text-base hover:scale-105 transition">
             Se connecter
           </button>
-          <button className="px-4 py-2 rounded-lg bg-red-600 text-white text-sm md:text-base hover:scale-105 transition">
+          <button  onClick={() => navigate("/connexion")} className="px-4 py-2 rounded-lg bg-red-600 text-white text-sm md:text-base hover:scale-105 transition">
             S'inscrire
           </button>
         </div>

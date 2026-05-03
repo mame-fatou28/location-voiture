@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import image1 from '../assets/luxedrivee-removebg-preview.png'
-
+import { useNavigate } from "react-router-dom";
 export default function Hero(){
+   const navigate = useNavigate();
     return(
         <div>
              <div className="relative w-full h-[70vh] overflow-hidden">
@@ -49,6 +50,7 @@ export default function Hero(){
           >
 
             <motion.button 
+            onClick={() => navigate("/Contact")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 px-6 py-3 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
@@ -62,7 +64,7 @@ export default function Hero(){
               </svg>
             </motion.button>
 
-            <motion.button 
+            <motion.button onClick={() => navigate("/nosvoitures")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-6 py-3 rounded-lg border border-white hover:bg-white hover:text-black transition"
