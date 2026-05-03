@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Nav from './component/Nav'
 import './App.css'
-import Tarif from './components/Tarif'
+import A_propos from './component/A_propos'
 
 function App() {
 
@@ -9,8 +9,7 @@ function App() {
 
   return (
     <>
-      <Tarif/>
-       
+      <A_propos/>
     </>
   )
 }
