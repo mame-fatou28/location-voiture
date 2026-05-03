@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Nav from './component/Nav'
 import './App.css'
-import Hero from './component/Hero'
+import Nos_voitures from './cmponent/Nos_voitures'
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Hero/>
+      <Nos_voitures/> 
     </>
   )
 }
