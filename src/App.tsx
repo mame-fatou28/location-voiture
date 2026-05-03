@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Nav from './component/Nav'
 import './App.css'
-import Connexion from './component/Connecter';
+import Hero from './component/Hero'
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Nav/>
+      <Hero/>
     </>
   )
 }
