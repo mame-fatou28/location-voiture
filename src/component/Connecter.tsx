@@ -1,8 +1,9 @@
-
-import { useState} from 'react'
+import { useState } from 'react';
+import { Link } from "react-router-dom";
 import logoluxe from "../assets/luxedrivee-removebg-preview.png";
 import image1 from "../assets/insscription.png";
-interface ConnexionProps { 
+
+interface ConnexionProps {
   onSwitch: () => void;
 }
 
@@ -13,16 +14,18 @@ const Connexion: React.FC<ConnexionProps> = ({ onSwitch }) => {
 
   const handleLogin = (e: any) => {
     e.preventDefault();
+
     if (!email || !password) {
       setMessage("Veuillez remplir tous les champs.");
-      return;   
+      return;
     }
+
     setMessage("Connexion réussie !");
   };
 
   return (
-   <div className="relative w-full h-screen">
-      
+    <div className="relative w-full h-screen">
+
       {/* IMAGE */}
       <img
         src={image1}
@@ -32,17 +35,19 @@ const Connexion: React.FC<ConnexionProps> = ({ onSwitch }) => {
 
       {/* OVERLAY */}
       <div className="absolute inset-0 flex items-center">
-        
-        {/* FORMULAIRE A GAUCHE */}
+
+        {/* FORMULAIRE */}
         <div className="ml-30 h-110 w-110 bg-black p-8 rounded-2xl shadow-md w-80">
-          
+
+          {/* LOGO */}
           <div className="flex flex-col items-center">
             <img src={logoluxe} alt="logo" className="h-14 mb-2" />
             <p className="text-sm text-gray-500 mb-6">Connexion Privée</p>
           </div>
 
+          {/* FORM */}
           <form onSubmit={handleLogin} className="flex flex-col gap-3">
-            
+
             <input
               type="email"
               placeholder="Adresse Email"
@@ -60,12 +65,13 @@ const Connexion: React.FC<ConnexionProps> = ({ onSwitch }) => {
             <button
              onClick={onSwitch}
               type="submit"
-              className="bg-red-600 text-white rounded-lg py-2 text-sm "
+              className="bg-red-600 text-white rounded-lg py-2 text-sm"
             >
               Se connecter
             </button>
           </form>
 
+          {/* LINKS */}
           <div className="flex justify-between mt-4 text-xs text-gray-400">
             <span className="cursor-pointer hover:underline">
               Mot de passe oublié ?
@@ -75,18 +81,20 @@ const Connexion: React.FC<ConnexionProps> = ({ onSwitch }) => {
             </span>
           </div>
 
+          {/* MESSAGE */}
           {message && (
             <p className="text-green-500 text-xs mt-3">{message}</p>
           )}
 
+          {/* LINK VERS INSCRIPTION */}
           <p className="text-xs text-gray-400 mt-4">
             Nouveau membre ?{" "}
-            <span
-              onClick={() => onSwitch && onSwitch()}
+            <Link
+              to="/inscription"
               className="text-red-500 cursor-pointer hover:underline"
             >
               Créer un compte
-            </span>
+            </Link>
           </p>
 
         </div>
