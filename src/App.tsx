@@ -1,7 +1,6 @@
 import { useState } from 'react'
-
 import './App.css'
-import Inscription from './component/Inscription'
+import Connexion from './component/Connecter';
 
 function App() {
 
@@ -9,10 +8,8 @@ function App() {
 
   return (
     
-    <>
-     
-      <Inscription/>
-    </>
+  <Connexion/>  
+
   )
 }
 
