@@ -1,10 +1,11 @@
 import { useState } from 'react'
-
+import Nav from './component/Nav'
 import './App.css'
 import Page from './component/Page'
 
 function App() {
 
+  
 
   return (
     <>
