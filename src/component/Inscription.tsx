@@ -95,6 +95,7 @@ export default function Inscription({ onSwitch }) {
             />
 
             <button
+             onClick={onSwitch}
               type="submit"
               className="bg-red-600 text-white rounded-lg py-2 text-sm font-medium mt-1"
             >

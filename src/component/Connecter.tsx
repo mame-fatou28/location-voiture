@@ -58,6 +58,7 @@ const Connexion: React.FC<ConnexionProps> = ({ onSwitch }) => {
             />
 
             <button
+             onClick={onSwitch}
               type="submit"
               className="bg-red-600 text-white rounded-lg py-2 text-sm "
             >
