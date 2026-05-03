@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Nav from './component/Nav'
 import './App.css'
-import Page from './component/Page'
+import Fin from './component/Fin'
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Page/>
+      <Fin/>
     </>
   )
 }
