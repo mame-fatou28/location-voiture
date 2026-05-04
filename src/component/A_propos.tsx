@@ -4,7 +4,7 @@ export default function A_propos() {
   return (
     <div className="bg-zinc-900 min-h-screen px-6 md:px-12 py-10">
       
-      {/* Titre */}
+     
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -14,10 +14,10 @@ export default function A_propos() {
         À Propos de <span className="text-red-600">LuxeDrive</span>
       </motion.h1>
 
-      {/* Texte + Image côte à côte */}
+      
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
         
-        {/* Texte */}
+     
         <div>
           <motion.p
             initial={{ opacity: 0, x: -80 }}
@@ -43,7 +43,7 @@ export default function A_propos() {
             pour vous offrir des moments inoubliables.
           </motion.p>
 
-          {/* Statistiques */}
+          
           <div className="grid grid-cols-3 gap-6 text-center">
             <motion.div
               whileHover={{ scale: 1.08 }}
@@ -83,7 +83,7 @@ export default function A_propos() {
           </div>
         </div>
 
-        {/* Image */}
+       
         <motion.img
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}

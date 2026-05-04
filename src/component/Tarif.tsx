@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-
+import { useNavigate } from "react-router-dom";
 export default function Tarif() {
+   const navigate = useNavigate();
   return (
     <div className="bg-black min-h-screen px-4 py-10">
-      {/* Header */}
+    
       <motion.div
         initial={{ opacity: 0, y: -60 }}
         animate={{ opacity: 1, y: 0 }}
@@ -19,10 +20,10 @@ export default function Tarif() {
         </h3>
       </motion.div>
 
-      {/* Cards */}
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto items-stretch">
         
-        {/* Classique */}
+       
         <motion.div
           initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
@@ -44,6 +45,7 @@ export default function Tarif() {
           </ul>
 
           <motion.button
+          onClick={() => navigate("/Contact")}
             whileTap={{ scale: 0.95 }}
             className="w-full mt-8 h-12 rounded-xl bg-zinc-800 text-white hover:bg-red-700 transition"
           >
@@ -51,7 +53,7 @@ export default function Tarif() {
           </motion.button>
         </motion.div>
 
-        {/* Premium */}
+      
         <motion.div
           initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,6 +81,7 @@ export default function Tarif() {
           </ul>
 
           <motion.button
+          onClick={() => navigate("/Contact")}
             whileTap={{ scale: 0.95 }}
             className="w-full mt-8 h-12 rounded-xl bg-red-700 text-white hover:bg-red-800 transition"
           >
@@ -86,7 +89,7 @@ export default function Tarif() {
           </motion.button>
         </motion.div>
 
-        {/* Prestige */}
+       
         <motion.div
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
@@ -110,6 +113,7 @@ export default function Tarif() {
           </ul>
 
           <motion.button
+          onClick={() => navigate("/Contact")}
             whileTap={{ scale: 0.95 }}
             className="w-full mt-8 h-12 rounded-xl bg-zinc-800 text-white hover:bg-red-700 transition"
           >
