@@ -240,7 +240,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Tableau */}
+     
         <div className="bg-black rounded-lg p-4 mt-6">
 
           <div className="flex flex-col lg:flex-row lg:items-center gap-3 mb-4">

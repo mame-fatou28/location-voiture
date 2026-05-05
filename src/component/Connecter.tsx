@@ -21,7 +21,7 @@ const Connexion = () => {
     setMessage("Connexion réussie !");
 
    
-    navigate("/");
+    navigate("/Dashboard");
   };
 
   return (

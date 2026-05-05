@@ -27,12 +27,10 @@ export default function Fin() {
           </h2>
 
           <div className="flex felx-row gap-3">
-            <button className="w-44 md:w-56 h-12 md:h-14 bg-red-600 text-white rounded-lg mt-6 md:mt-8 text-sm md:text-lg hover:scale-105 transition">
+            <button onClick={() => navigate("/contact")} className="w-44 md:w-56 h-12 md:h-14 bg-red-600 text-white rounded-lg mt-6 md:mt-8 text-sm md:text-lg hover:scale-105 transition">
             Réserver maintenant
           </button>
-           <button  onClick={() => navigate("/dashboard")} className="w-50 md:w-56 h-12 md:h-14 border-1 border-red-600 text-white rounded-lg mt-6 md:mt-8 text-sm md:text-lg hover:scale-105 transition">
-            Acceder au dashbord
-          </button>
+          
           </div>
         </div>
       </div>
