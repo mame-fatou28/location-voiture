@@ -3,25 +3,53 @@ import { Link, useNavigate } from "react-router-dom";
 import logoluxe from "../assets/luxedrivee-removebg-preview.png";
 import image1 from "../assets/insscription.png";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const Connexion = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [erreur, setErreur] = useState('');
+  const [chargement, setChargement] = useState(false);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handleLogin = (e: any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
     if (!email || !password) {
-      setMessage("Veuillez remplir tous les champs.");
+      setErreur("Veuillez remplir tous les champs.");
       return;
     }
 
-    setMessage("Connexion réussie !");
+    setErreur("");
+    setMessage("");
+    setChargement(true);
 
-   
-    navigate("/Dashboard");
+    try {
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Email ou mot de passe incorrect.");
+      }
+
+      // On stocke le token pour les prochaines requêtes vers les routes protégées
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify({ nom: data.nom, email: data.email, role: data.role }));
+
+      setMessage("Connexion réussie !");
+      navigate("/Dashboard");
+    } catch (err: any) {
+      setErreur(err.message || "Impossible de contacter le serveur. Vérifie que le backend tourne.");
+    } finally {
+      setChargement(false);
+    }
   };
 
   return (
@@ -47,6 +75,7 @@ const Connexion = () => {
             <input
               type="email"
               placeholder="Adresse Email"
+              value={email}
               className="border border-gray-200 bg-zinc-900 rounded-lg px-4 py-2 text-sm outline-none"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -54,20 +83,25 @@ const Connexion = () => {
             <input
               type="password"
               placeholder="Mot de passe"
+              value={password}
               className="border border-gray-200 bg-zinc-900 rounded-lg px-4 py-2 text-sm outline-none"
               onChange={(e) => setPassword(e.target.value)}
             />
 
             <button
               type="submit"
-              className="bg-red-600 text-white rounded-lg py-2 text-sm"
+              disabled={chargement}
+              className="bg-red-600 text-white rounded-lg py-2 text-sm disabled:opacity-50"
             >
-              Se connecter
+              {chargement ? "Connexion en cours..." : "Se connecter"}
             </button>
           </form>
 
           {message && (
             <p className="text-green-500 text-xs mt-3">{message}</p>
+          )}
+          {erreur && (
+            <p className="text-red-500 text-xs mt-3">{erreur}</p>
           )}
 
           <p className="text-xs text-gray-400 mt-4">

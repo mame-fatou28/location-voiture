@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import logoluxe from "../assets/luxedrivee-removebg-preview.png";
 import image1 from '../assets/insscription.png';
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 export default function Inscription() {
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     prenom: "",
@@ -17,12 +19,13 @@ export default function Inscription() {
   });
 
   const [error, setError] = useState("");
+  const [chargement, setChargement] = useState(false);
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -31,10 +34,36 @@ export default function Inscription() {
     }
 
     setError("");
-    alert("Compte premium créé !");
+    setChargement(true);
 
-  
-    navigate("/Connexion");
+    try {
+      const res = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom: `${formData.prenom} ${formData.nom}`,
+          email: formData.email,
+          telephone: formData.telephone,
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Erreur lors de l'inscription.");
+      }
+
+      // Compte créé et connecté automatiquement : on stocke le token reçu
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify({ nom: data.nom, email: data.email, role: data.role }));
+
+      navigate("/connexion");
+    } catch (err: any) {
+      setError(err.message || "Impossible de contacter le serveur. Vérifie que le backend tourne.");
+    } finally {
+      setChargement(false);
+    }
   };
 
   return (
@@ -60,36 +89,37 @@ export default function Inscription() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
 
             <div className="flex gap-2">
-              <input name="prenom" placeholder="Prénom"
+              <input name="prenom" placeholder="Prénom" value={formData.prenom}
                 className="border border-gray-600 bg-zinc-900 text-white rounded-lg px-3 py-2 text-sm w-1/2"
                 onChange={handleChange} required />
 
-              <input name="nom" placeholder="Nom"
+              <input name="nom" placeholder="Nom" value={formData.nom}
                 className="border border-gray-600 bg-zinc-900 text-white rounded-lg px-3 py-2 text-sm w-1/2"
                 onChange={handleChange} required />
             </div>
 
-            <input name="email" type="email" placeholder="Email"
+            <input name="email" type="email" placeholder="Email" value={formData.email}
               className="border border-gray-600 bg-zinc-900 text-white rounded-lg px-4 py-2 text-sm"
               onChange={handleChange} required />
 
-            <input name="telephone" placeholder="Téléphone"
+            <input name="telephone" placeholder="Téléphone" value={formData.telephone}
               className="border border-gray-600 bg-zinc-900 text-white rounded-lg px-4 py-2 text-sm"
               onChange={handleChange} />
 
-            <input name="password" type="password" placeholder="Mot de passe"
+            <input name="password" type="password" placeholder="Mot de passe" value={formData.password}
               className="border border-gray-600 bg-zinc-900 text-white rounded-lg px-4 py-2 text-sm"
               onChange={handleChange} required />
 
-            <input name="confirmPassword" type="password" placeholder="Confirmer mot de passe"
+            <input name="confirmPassword" type="password" placeholder="Confirmer mot de passe" value={formData.confirmPassword}
               className="border border-gray-600 bg-zinc-900 text-white rounded-lg px-4 py-2 text-sm"
               onChange={handleChange} required />
 
             <button
               type="submit"
-              className="bg-red-600 text-white rounded-lg py-2 text-sm"
+              disabled={chargement}
+              className="bg-red-600 text-white rounded-lg py-2 text-sm disabled:opacity-50"
             >
-              S'inscrire
+              {chargement ? "Création en cours..." : "S'inscrire"}
             </button>
 
             {error && (

@@ -1,17 +1,42 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import image4 from '../assets/porssh.jpg';
-import image5 from '../assets/mercedes.jpg';
-import image6 from '../assets/bmw.png';
-import image7 from '../assets/audi.jpg';
-import image8 from '../assets/lambourghuini.jpg';
-import image9 from '../assets/rover.jpg';
-import image10 from '../assets/maa.jpg';
-import image11 from '../assets/toyota.jpg';
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
+type Voiture = {
+    _id: string;
+    marque: string;
+    modele: string;
+    prixParJour: number;
+    carburant?: string;
+    transmission?: string;
+    places?: number;
+    image?: string;
+    disponible: boolean;
+};
 
 export default function Nos_voitures() {
     const navigate = useNavigate();
+    const [voitures, setVoitures] = useState<Voiture[]>([]);
+    const [chargement, setChargement] = useState(true);
+    const [erreur, setErreur] = useState("");
+
+    useEffect(() => {
+        const fetchVoitures = async () => {
+            try {
+                const res = await fetch(`${API_URL}/voitures`);
+                if (!res.ok) throw new Error("Impossible de charger les voitures.");
+                const data = await res.json();
+                setVoitures(data);
+            } catch (err: any) {
+                setErreur(err.message || "Erreur de connexion au serveur.");
+            } finally {
+                setChargement(false);
+            }
+        };
+        fetchVoitures();
+    }, []);
 
     return (
         <motion.div
@@ -30,42 +55,47 @@ export default function Nos_voitures() {
                 Découvrez nos véhicules d'exception
             </p>
 
+            {chargement && (
+                <p className='text-gray-400 text-center mt-10'>Chargement des véhicules...</p>
+            )}
+
+            {erreur && (
+                <p className='text-red-500 text-center mt-10'>{erreur}</p>
+            )}
+
+            {!chargement && !erreur && voitures.length === 0 && (
+                <p className='text-gray-400 text-center mt-10'>
+                    Aucun véhicule disponible pour le moment.
+                </p>
+            )}
+
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10 mt-8'>
-
-                <Car navigate={navigate} image={image4} name="Porsche 911 Turbo S" price="350000F"
-                    specs={["0-100 km/h en 2.7s", "650 ch", "Automatique"]} />
-
-                <Car navigate={navigate} image={image5} name="Mercedes-AMG GT" price="280000F"
-                    specs={["V8 Biturbo", "585 ch", "Cuir Nappa"]} />
-
-                <Car navigate={navigate} image={image7} name="Audi R8 V10" price="400000F"
-                    specs={["V10 5.2L", "620 ch", "Quattro"]} />
-
-                <Car navigate={navigate} image={image6} name="BMW M8 Competition" price="320000F"
-                    specs={["4.4L V8", "625 ch", "Transmission intégrale"]} />
-
-                <Car navigate={navigate} image={image8} name="Lamborghini Huracán" price="450000F"
-                    specs={["V10 5.2L", "640 ch", "AWD"]} />
-
-                <Car navigate={navigate} image={image9} name="Range Rover" price="350000F"
-                    specs={["V8 4.4L", "530 ch", "AWD"]} />
-
-                <Car navigate={navigate} image={image10} name="Mercedes-AMG G 63" price="500000F"
-                    specs={["V8 4.0L", "585 ch", "4MATIC"]} />
-
-                <Car navigate={navigate} image={image11} name="Toyota Land Cruiser 300" price="350000F"
-                    specs={["V6 Twin Turbo 3.5L", "409 ch", "4x4 AWD"]} />
-
+                {voitures.map((v) => (
+                    <Car
+                        key={v._id}
+                        navigate={navigate}
+                        id={v._id}
+                        image={v.image}
+                        name={`${v.marque} ${v.modele}`}
+                        price={`${v.prixParJour.toLocaleString("fr-FR")}F`}
+                        priceValue={v.prixParJour}
+                        specs={[
+                            v.transmission ? `Transmission ${v.transmission}` : null,
+                            v.carburant ? v.carburant : null,
+                            v.places ? `${v.places} places` : null,
+                        ].filter(Boolean) as string[]}
+                    />
+                ))}
             </div>
 
         </motion.div>
     );
 }
 
-function Car({ image, name, specs, price, navigate }: any) {
+function Car({ id, image, name, specs, price, priceValue, navigate }: any) {
     return (
         <motion.div
-            className='w-full h-60 md:h-80 lg:h-100 rounded-lg overflow-hidden relative'
+            className='w-full h-60 md:h-80 lg:h-100 rounded-lg overflow-hidden relative bg-zinc-800'
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.03 }}
@@ -73,7 +103,10 @@ function Car({ image, name, specs, price, navigate }: any) {
             viewport={{ once: true }}
         >
 
-            <img src={image} className='h-full w-full object-cover' />
+            <img
+                src={image || "https://placehold.co/400x300/1a1a1a/ffffff?text=Photo+a+venir"}
+                className='h-full w-full object-cover'
+            />
             <div className='absolute inset-0 bg-black/50'></div>
 
             <div className='absolute inset-0 p-4 flex flex-col justify-end text-white'>
@@ -96,7 +129,7 @@ function Car({ image, name, specs, price, navigate }: any) {
                 </p>
 
                 <button
-                    onClick={() => navigate("/contact")}
+                    onClick={() => navigate("/contact", { state: { carId: id, carName: name, carPrice: priceValue } })}
                     className='mt-2 w-full py-2 bg-red-600 rounded-md hover:scale-105 transition'
                 >
                     Réserver
