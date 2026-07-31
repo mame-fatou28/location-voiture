@@ -4,6 +4,16 @@ import image1 from "../assets/Icon.svg";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
+const dateActuelle = new Date().toLocaleDateString("fr-FR", {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+const dateFormatee =
+  dateActuelle.charAt(0).toUpperCase() + dateActuelle.slice(1);
+
 type Stats = {
   reservationsActives: number;
   revenuMensuel: number;
@@ -189,8 +199,13 @@ export default function Header() {
 
       {/* Header Info */}
       <div className="mb-4">
-        <h1 className="text-gray-100 font-bold text-xl sm:text-2xl">Vue d'ensemble</h1>
-        <span className="text-gray-400 text-xs sm:text-sm">Lundi 27 Avril 2026</span>
+       <h1 className="text-gray-300 font-bold text-xl sm:text-2xl">
+  Vue d'ensemble
+</h1>
+
+<span className="text-gray-400 text-xs sm:text-sm">
+  {dateFormatee}
+</span>
       </div>
 
       <div className="border-t border-gray-700 my-4" />
