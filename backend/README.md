@@ -2,7 +2,7 @@
 
 API REST développée avec **Express.js** et **MongoDB** (Mongoose), destinée à être connectée au frontend React existant.
 
-## 📁 Structure du projet
+##  Structure du projet
 
 ```
 backend/
@@ -31,7 +31,7 @@ backend/
 └── package.json
 ```
 
-## 🚀 Installation (pour chaque membre de l'équipe)
+##  Installation (pour chaque membre de l'équipe)
 
 1. **Cloner le dépôt**
    ```bash
@@ -56,7 +56,7 @@ backend/
    ```
    L'API tourne par défaut sur `http://localhost:5000`.
 
-## 🔑 Variables d'environnement (.env)
+##  Variables d'environnement (.env)
 
 | Variable | Description |
 |---|---|
@@ -66,7 +66,7 @@ backend/
 | `JWT_EXPIRES_IN` | Durée de validité du token (ex: `7d`) |
 | `CLIENT_URL` | URL du frontend autorisée pour CORS |
 
-> ⚠️ Le fichier `.env` ne doit **jamais** être commité (il est déjà dans `.gitignore`). Seul `.env.example` est versionné.
+>  Le fichier `.env` ne doit **jamais** être commité (il est déjà dans `.gitignore`). Seul `.env.example` est versionné.
 
 ### Créer une base MongoDB gratuite (recommandé : MongoDB Atlas)
 1. Aller sur https://www.mongodb.com/cloud/atlas/register
@@ -75,7 +75,7 @@ backend/
 4. Autoriser l'accès depuis n'importe quelle IP (0.0.0.0/0) pour le développement et Render/Railway
 5. Copier la chaîne de connexion dans `MONGO_URI`
 
-## 📡 Documentation de l'API
+##  Documentation de l'API
 
 Base URL locale : `http://localhost:5000/api`
 
@@ -144,11 +144,33 @@ Authorization: Bearer <token>
   "message": "Bonjour, je voudrais savoir si..."
 }
 ```
+### Réservations
+
+| Méthode | Route | Accès | Description |
+|---|---|---|---|
+| GET | `/reservations` | Admin | Liste de toutes les réservations |
+| POST | `/reservations` | Public | Créer une réservation |
+| PUT | `/reservations/:id` | Admin | Modifier une réservation |
+| DELETE | `/reservations/:id` | Admin | Supprimer une réservation |
+| GET | `/reservations/stats` | Admin | Consulter les statistiques des réservations |
+
+**Exemple body (POST /reservations)**
+
+```json
+{
+  "nom": "Fatou Sène",
+  "email": "fatou@mail.com",
+  "telephone": "771234567",
+  "voiture": "665f1c2e...",
+  "dateDebut": "2026-08-01",
+  "dateFin": "2026-08-05"
+}
+```
 
 ### Santé de l'API
 `GET /api/health` → `{ "status": "OK", "message": "API en ligne" }` (utile pour vérifier le déploiement).
 
-## 🔗 Intégration avec le frontend
+## Intégration avec le frontend
 
 Dans le projet frontend (Vite), crée un fichier `.env` avec :
 ```
@@ -156,7 +178,7 @@ VITE_API_URL=http://localhost:5000/api
 ```
 puis en production (après déploiement du backend) :
 ```
-VITE_API_URL=https://ton-backend.onrender.com/api
+VITE_API_URL=https://location-voiture-fk5o.onrender.com/api
 ```
 
 Exemple d'appel avec `fetch` :
@@ -165,7 +187,7 @@ const res = await fetch(`${import.meta.env.VITE_API_URL}/voitures`);
 const voitures = await res.json();
 ```
 
-## ☁️ Déploiement (Render)
+## Déploiement (Render)
 
 1. Pousser ce dépôt sur GitHub
 2. Sur https://render.com → **New Web Service** → connecter le repo
@@ -175,7 +197,7 @@ const voitures = await res.json();
 4. Ajouter les variables d'environnement (`MONGO_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `CLIENT_URL`) dans l'onglet *Environment*
 5. Déployer, puis récupérer l'URL générée (ex: `https://examen-backend.onrender.com`)
 
-## 🧪 Tester avec Postman
+##  Tester avec Postman
 
 Importer les routes ci-dessus dans une collection Postman, ou tester directement :
 ```
@@ -184,7 +206,7 @@ POST http://localhost:5000/api/auth/register
 GET  http://localhost:5000/api/voitures
 ```
 
-## 👥 Workflow Git pour l'équipe
+##  Workflow Git pour l'équipe
 
 ```bash
 # Récupérer les dernières modifications
