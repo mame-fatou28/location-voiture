@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-// ✅ APRÈS (en dur pour tester direct)
-const API_URL = "https://location-voiture-fk5o.onrender.com/api";
+const API_URL = "https://location-voiture-gules.vercel.app/api";
 
 type Voiture = {
     _id: string;
