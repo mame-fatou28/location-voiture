@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+// ✅ APRÈS (en dur pour tester direct)
+const API_URL = "https://location-voiture-fk5o.onrender.com/api";
 
 type Voiture = {
     _id: string;
