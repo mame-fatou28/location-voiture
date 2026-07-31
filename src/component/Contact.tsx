@@ -235,13 +235,13 @@ ${message}`;
 
                     <div className='flex flex-col'>
                         <label className='text-gray-300 text-sm font-medium ml-2 md:ml-10'>Prénom*</label>
-                        <input type="text" placeholder="Gueye" value={prenom} onChange={(e) => setPrenom(e.target.value)}
+                        <input type="text" placeholder="Fatou kiné" value={prenom} onChange={(e) => setPrenom(e.target.value)}
                             className="bg-zinc-900 border ml-0 md:ml-8 mt-3 border-white/10 focus:outline-none focus:border-red-600 placeholder-white/25 rounded-xl px-4 py-3 text-white text-sm w-80" />
                     </div>
 
                     <div className='flex flex-col'>
                         <label className='text-gray-300 text-sm font-medium ml-2 md:ml-10'>Nom*</label>
-                        <input type="text" placeholder="Fatou kiné" value={nom} onChange={(e) => setNom(e.target.value)}
+                        <input type="text" placeholder="Gueye" value={nom} onChange={(e) => setNom(e.target.value)}
                             className="bg-zinc-900 border ml-0 md:ml-8 mt-3 border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 placeholder-white/25 text-white text-sm w-80" />
                     </div>
 
